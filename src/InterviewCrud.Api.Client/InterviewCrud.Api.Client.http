@@ -1,0 +1,6 @@
+@InterviewCrud.Api.Client_HostAddress = http://localhost:5262
+
+GET {{InterviewCrud.Api.Client_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
