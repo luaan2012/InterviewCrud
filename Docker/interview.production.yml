@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  api1:
+    build:
+      context: ../src
+      dockerfile: ./InterviewCrud.Api.Client/Dockerfile
+    ports:
+      - "5001:80"
+    networks:
+      - your-network
+    depends_on:
+      - api2
+
+  api2:
+    build:
+      context: ../src
+      dockerfile: ./InterviewCrud.Api.Identity/Dockerfile
+    ports:
+      - "5002:80"
+    networks:
+      - your-network
+
+  angular-app:
+    build:
+      context: ../src
+      dockerfile: ./InterviewCrud.Web/Dockerfile
+    ports:
+      - "4200:4200"
+    networks:
+      - your-network
+    depends_on:
+      - api1
+      - api2
+
+networks:
+  your-network:
+    driver: bridge
