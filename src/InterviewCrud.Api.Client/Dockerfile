@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["./InterviewCrud.Api.Client/InterviewCrud.Api.Client.csproj", "InterviewCrud.Api.Client.csproj/"]
 COPY . .
-WORKDIR "/src"
+WORKDIR "InterviewCrud.Api.Client.csproj"
 RUN dotnet build "InterviewCrud.Api.Client.csproj" -c Release -o /app/build
 
 FROM build AS publish

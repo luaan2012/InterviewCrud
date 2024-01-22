@@ -1,7 +1,9 @@
 using InterviewCrud.Api.Identity.Configuration;
+using InterviewCrud.Api.Identity.Data;
 using InterviewCrud.Api.Identity.EndPoints;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,5 +37,15 @@ app.UseStaticFiles(new StaticFileOptions
     FileProvider = new PhysicalFileProvider(physicalPath),
     RequestPath = new PathString(virtualPath)
 });
+
+if(builder.Environment.IsProduction())
+{
+    IdentityModelEventSource.ShowPII = true;
+
+    using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    await db.Database.EnsureCreatedAsync();
+}
+
 
 app.Run();
