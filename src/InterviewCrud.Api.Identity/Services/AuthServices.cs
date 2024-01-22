@@ -6,7 +6,6 @@ using InterviewCrud.Api.Identity.Models;
 using InterviewCrud.Api.Identity.OutputModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using NetDevPack.Security.Jwt.Core.Interfaces;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
@@ -41,10 +40,9 @@ public class AuthServices(
         if (result.Succeeded)
         {
             var user = await _userManager.FindByNameAsync(request.EmailOrUserName);
-
-            var at = await GenerateAccessToken(request.EmailOrUserName);
-            var rt = await GenerateRefreshToken(request.EmailOrUserName);
-            return new UserLoginResponse(at, rt, user.Id, _appSettings.Expiration, user.ProfileImage, user.Email);
+            var at = await GenerateAccessToken(user.Email);
+            var rt = await GenerateRefreshToken(user.Email);
+            return new UserLoginResponse(at, rt, user.Id, _appSettings.Expiration, user.ProfileImage, user.Email, user.UserName);
         }
 
         return "Não autorizado";
@@ -63,6 +61,16 @@ public class AuthServices(
 
         if(!string.IsNullOrEmpty(request.ProfilePhoto) || !string.IsNullOrEmpty(request.Base64Profile))
         {
+            string fileName = Path.GetFileNameWithoutExtension(request.ProfilePhoto);
+            string fileExtension = Path.GetExtension(request.ProfilePhoto);
+
+            string newFileName = fileName + DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            string newProfilePhoto = newFileName + fileExtension;
+
+            request.ProfilePhoto = newProfilePhoto;
+            user.ProfileImage = newProfilePhoto;
+
             var profilePhoto = FileHelper.SaveBase64Image(request.Base64Profile, "Images", request.ProfilePhoto);
 
             if (!profilePhoto)

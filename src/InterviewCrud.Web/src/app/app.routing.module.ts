@@ -10,6 +10,7 @@ import { NgModule } from '@angular/core';
   { path: 'register', component: RegisterComponent },
   { path: 'signin', component: SignInComponent },
   { path: 'registerClient', component: RegisterClientComponent },
+  { path: 'registerClient/:id', component: RegisterClientComponent },
   { path: 'viewClients', component: ViewClientsComponent },
 ];
 

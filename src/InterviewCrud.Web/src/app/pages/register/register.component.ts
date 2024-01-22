@@ -2,6 +2,7 @@ import { IdentityService } from './../../services/identity.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { isLogged } from '../../helpers/storage';
 
 @Component({
   selector: 'app-register',
@@ -9,6 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  errors: any = []
+
   registerForm = this.formBuilder.group({
     userName: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email] ],
@@ -29,7 +32,8 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    if(isLogged())
+      this.router.navigate(['viewClients'])
   }
 
   onSubmit() {
@@ -37,23 +41,21 @@ export class RegisterComponent implements OnInit {
     this.markFormFieldsAsTouched()
 
     if(!this.registerForm.valid)
-      alert("Invalido")
+      alert("Algo está errado, preencha corretamente.")
 
       const formData = new FormData();
       formData.append('profilePhoto', this.registerForm.get('profilePhoto')?.value!);
-
-      console.log(formData)
 
     if (this.registerForm.valid) {
       const requestRegister = this.registerForm.value;
 
       this.IdentityService.register(requestRegister).subscribe({
         next: () => {
-          alert('Sucesso')
+          alert('Bem vindo')
           this.router.navigate(['signin'])
         },
         error: (error) => {
-          alert(error)
+          this.errors = error?.error
         },
         complete: () => {
           setTimeout(() => {

@@ -13,7 +13,8 @@
 
                 byte[] imageBytes = Convert.FromBase64String(base64String);
 
-                string filePath = Path.Combine(folderPath, fileName);
+                var appBasePath = AppContext.BaseDirectory;
+                string filePath = Path.Combine(appBasePath, folderPath, fileName);
 
                 File.WriteAllBytes(filePath, imageBytes);
 

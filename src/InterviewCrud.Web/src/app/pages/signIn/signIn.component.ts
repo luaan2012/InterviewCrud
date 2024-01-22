@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IdentityService } from '../../services/identity.service';
-import { getToken, saveToken } from '../../helpers/storage';
+import { getUser, isLogged, saveUser } from '../../helpers/storage';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
   loginForm =  this.formBuilder.group({
-    emailOrUsername: ['', [Validators.required, Validators.email]],
+    emailOrUsername: ['', [Validators.required]],
     password: ['', Validators.required],
   });
 
@@ -25,7 +25,8 @@ export class SignInComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
+    if(isLogged())
+      this.router.navigate(['/viewClients'])
   }
 
   onSubmit() {
@@ -39,16 +40,14 @@ export class SignInComponent implements OnInit {
       const { emailOrUsername, password } = this.loginForm.value;
       this.IdentityService.login(emailOrUsername || '', password || '').subscribe({
         next: (response) => {
-          saveToken(response)
+          saveUser(response)
           this.router.navigate(['viewClients'])
         },
         error: (error) => {
-          alert(error)
+          alert(error?.error || 'Algo deu errado.')
         },
         complete: () => {
-          setTimeout(() => {
-            console.log(getToken())
-          }, 2000)
+
         }
       });
     }

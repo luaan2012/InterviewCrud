@@ -1,10 +1,10 @@
-import { Token } from "@angular/compiler";
+import { User } from "../models/token";
 
-export const saveToken = (token: Token) => {
-  localStorage.setItem("app.token", JSON.stringify(token))
+export const saveUser = (user: User) => {
+  localStorage.setItem("app.token", JSON.stringify(user))
 }
 
-export const getToken = () : Token | undefined => {
+export const getUser = () : User | undefined => {
   const token = localStorage.getItem("app.token")
 
   return token ? JSON.parse(token) : undefined;

@@ -28,7 +28,7 @@ namespace InterviewCrud.Api.Client.InputModels
 
     public class RequestContact
     {
-        public string? Name { get; set; }
+        public string? NameContact { get; set; }
         public RequestTypeContact? TypeContact { get; set; }
         public string? ContactNumber { get; set; }
 

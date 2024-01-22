@@ -1,5 +1,5 @@
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
@@ -9,6 +9,7 @@ import { ViewClientsComponent } from './pages/viewClients/viewClients.component'
 import { AppRoutingModule } from './app.routing.module';
 import { RouterOutlet } from '@angular/router';
 import { RegisterClientComponent } from './pages/registerClient/registerClient.component';
+import { TokenInterceptor } from './services/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { RegisterClientComponent } from './pages/registerClient/registerClient.c
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

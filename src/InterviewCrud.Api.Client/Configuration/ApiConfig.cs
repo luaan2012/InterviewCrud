@@ -26,6 +26,16 @@ public static class ApiConfig
                 jwt.SetJwksOptions(new JwkOptions(appSettings.IdentityURL));
             });
 
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyMethod()
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader();
+            });
+        });
+
         services.AddAuthorization();
     }
 
@@ -36,6 +46,8 @@ public static class ApiConfig
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseCors();
 
         app.UseHttpsRedirection();
 

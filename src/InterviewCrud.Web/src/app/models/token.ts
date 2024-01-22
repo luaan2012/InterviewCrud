@@ -1,5 +1,9 @@
-export interface Token {
-  acessToken: string,
+export interface User {
+  accessToken: string,
   refreshToken: string,
-  expiresIn: string
+  expiresIn: string,
+  email: string,
+  profileImage: string,
+  name: string,
+  userId: string
 }

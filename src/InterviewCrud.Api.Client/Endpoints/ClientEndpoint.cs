@@ -9,7 +9,7 @@ namespace InterviewCrud.Api.Client.Endpoints
         public static void MapUserEndpoints(this WebApplication app)
         {
             app.MapGet("ListAll", ListAll).RequireAuthorization();
-            app.MapPost("ListById", ListById).RequireAuthorization();
+            app.MapGet("ListById", ListById).RequireAuthorization();
             app.MapPost("AddClient", AddClient).RequireAuthorization();
             app.MapPut("Edit", Edit).RequireAuthorization();
             app.MapDelete("Delete", Delete).RequireAuthorization();
@@ -54,9 +54,9 @@ namespace InterviewCrud.Api.Client.Endpoints
             return result ? Results.Ok(result) : Results.BadRequest(result);
         }
 
-        public static async Task<IResult> Edit(Guid guid, RequestClient request, IClientService clientService)
+        public static async Task<IResult> Edit(Guid guid, Models.Client client, IClientService clientService)
         {
-            var result = await clientService.Edit(guid, request);
+            var result = await clientService.Edit(guid, client);
 
             return result ? Results.Ok(result) : Results.BadRequest(result);
         }

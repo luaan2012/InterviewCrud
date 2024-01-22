@@ -4,6 +4,7 @@ using InterviewCrud.Api.Client.Models;
 using InterviewCrud.Api.Client.OutputModels;
 using InterviewCrud.Api.Client.Repository;
 using MassTransit;
+using System.Net;
 
 namespace InterviewCrud.Api.Client.Services
 {
@@ -13,7 +14,7 @@ namespace InterviewCrud.Api.Client.Services
         Task<Result<Models.Client, string>> ListById(Guid id);
         Task<Result<bool, string>> Add(RequestClient requestClient);
         Task<bool> Delete(Guid guid);
-        Task<bool> Edit(Guid guid, RequestClient requestClient);
+        Task<bool> Edit(Guid guid, Models.Client requestClient);
         Task<bool> Inactive(Guid guid);
         Task<bool> Active(Guid guid);
     }
@@ -52,8 +53,8 @@ namespace InterviewCrud.Api.Client.Services
 
             var result = await _clientRepository
                 .Add(client,
-                RequestContactToClient(requestClient.Contact, client.Id),
-                RequestAddressToClient(requestClient.Address, client.Id));
+                MapRequestContactToClient(requestClient.Contacts, client.Id),
+                MapRequestAddressesToClient(requestClient.Addresses, client.Id));
 
             return result ? result : "Aconteceu um erro ao tentar registrar um cliente;";
         }
@@ -63,9 +64,9 @@ namespace InterviewCrud.Api.Client.Services
             return await _clientRepository.Delete(guid);
         }
 
-        public async Task<bool> Edit(Guid guid, RequestClient requestClient)
+        public async Task<bool> Edit(Guid guid, Models.Client client)
         {
-            return await _clientRepository.Update(guid, requestClient);
+            return await _clientRepository.Update(guid, client);
         }
 
         public async Task<bool> Inactive(Guid guid)
@@ -93,36 +94,52 @@ namespace InterviewCrud.Api.Client.Services
                 DateBirthday = requestClient.DateBirthday,                
             };
         }
-        private Address RequestAddressToClient(RequestAddress address, Guid clientID)
+        private IEnumerable<Address> MapRequestAddressesToClient(IEnumerable<RequestAddress> addresses, Guid clientId)
         {
-            return new Address
+            List<Address> mappedAddresses = [];
+
+            foreach (var address in addresses)
             {
-                ClientId = clientID,
-                Number = address.Number,
-                Complement = address.Complement,
-                Neighborhood = address.Neighborhood,
-                Cep = address.Cep,
-                City = address.City,
-                State = address.State,
-                PublicPlace = address.PublicPlace,
-            };
+                Address mappedAddress = new()
+                {
+                    ClientId = clientId,
+                    Number = address.Number,
+                    Complement = address.Complement,
+                    Cep = address.Cep,
+                    City = address.City,
+                    State = address.State,
+                    PublicPlace = address.PublicPlace,
+                };
+
+                mappedAddresses.Add(mappedAddress);
+            }
+
+            return mappedAddresses;
         }
 
-        private Contact RequestContactToClient(RequestContact requestContact, Guid clientID)
+        private IEnumerable<Contact> MapRequestContactToClient(IEnumerable<RequestContact> requestContact, Guid clientID)
         {
-            return new Contact
+            List<Contact> mappedContacts = [];
+
+            foreach (var contact in requestContact)
             {
-                ClientId = clientID,
-                Name = requestContact.Name,
-                ContactNumber = requestContact.ContactNumber,
-                TypeContact = new TypeContact
+                Contact mappedContact = new()
                 {
                     ClientId = clientID,
-                    Contact = requestContact.TypeContact.Contact,
-                    TypeContactEnum = requestContact.TypeContact.TypeContactEnum
-                },
-            };
-        }
+                    NameContact = contact?.NameContact,
+                    ContactNumber = contact?.ContactNumber,
+                    TypeContact = new TypeContact
+                    {
+                        ClientId = clientID,
+                        Contact = contact?.TypeContact.Contact,
+                        TypeContactEnum = contact?.TypeContact.TypeContactEnum
+                    },
+                };
 
+                mappedContacts.Add(mappedContact);
+            }
+
+            return mappedContacts;
+        }
     }
 }
