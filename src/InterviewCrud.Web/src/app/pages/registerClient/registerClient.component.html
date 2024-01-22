@@ -1,0 +1,168 @@
+
+
+
+<form [formGroup]="registerClient" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <h1 class="mb-5 text-gray-200 text-4xl">Cliente</h1>
+
+  <div class="grid md:grid-cols-3 md:gap-6">
+    <div class="relative z-0 w-full mb-5 group">
+        <input type="tel" name="name" id="name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="name" />
+        <label for="name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Digite seu nome:</label>
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+        *ngIf="registerClient.get('name')?.hasError('required')
+              && registerClient.get('name')?.touched"
+        ><span class="font-medium">Oops!</span> Campo obrigátorio!</p>
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+        <input type="text" name="lastName" id="lastName" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="lastName"/>
+        <label for="lastName" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Digite seu sobrenome:</label>
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+        *ngIf="registerClient.get('lastName')?.hasError('required')
+              && registerClient.get('lastName')?.touched"
+        ><span class="font-medium">Oops!</span> Campo obrigátorio</p>
+      </div>
+    <div class="relative z-0 w-full mb-5 group">
+      <input type="date" name="dateBirthday" id="dateBirthday" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="dateBirthday" />
+      <label for="dateBirthday" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Data de nascimento:</label>
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+        *ngIf="registerClient.get('dateBirthday')?.hasError('required')
+              && registerClient.get('dateBirthday')?.touched"
+        ><span class="font-medium">Oops!</span> Campo obrigátorio</p>
+    </div>
+  </div>
+  <div class="grid md:grid-cols-3 md:gap-6">
+    <div class="relative z-0 w-full mb-5 group">
+        <input type="email" name="email" id="email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="email" />
+        <label for="email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Digite seu e-mail</label>
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+        *ngIf="registerClient.get('email')?.hasError('required')
+              && registerClient.get('email')?.touched"
+        ><span class="font-medium">Oops!</span> Campo obrigátorio</p>
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+        *ngIf="registerClient.get('email')?.hasError('email')
+              && registerClient.get('email')?.touched"
+        ><span class="font-medium">Oops!</span> Email é obrigatório!</p>
+      </div>
+    <div class="relative z-0 w-full mb-5 group">
+        <input type="text" name="CPF" id="CPF" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="CPF" />
+        <label for="CPF" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Digite seu CPF:</label>
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+        *ngIf="registerClient.get('CPF')?.hasError('required')
+              && registerClient.get('CPF')?.touched"
+        ><span class="font-medium">Oops!</span> Campo obrigátorio</p>
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      <input type="text" name="RG" id="RG" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="RG" />
+      <label for="RG" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Digite seu RG:</label>
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+        *ngIf="registerClient.get('RG')?.hasError('required')
+              && registerClient.get('RG')?.touched"
+        ><span class="font-medium">Oops!</span> Campo obrigátorio</p>
+    </div>
+  </div>
+
+  <h1 class="mb-5 mt-5 text-gray-200 text-4xl">Endereços</h1>
+
+  <div formArrayName="addresses">
+    <div *ngFor="let addressGroup of addresses.controls; let i = index">
+      <div class="grid md:grid-cols-3 md:gap-6" [formGroup]="addressGroup">
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="publicPlace" id="publicPlace" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="publicPlace" />
+            <label for="publicPlace" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Digite seu logradouro:</label>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+            *ngIf="addressGroup.get('publicPlace')?.hasError('required')
+                  && addressGroup.get('publicPlace')?.touched"
+            ><span class="font-medium">Oops!</span> Campo obrigátorio</p>
+          </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="number" id="number" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="number" />
+            <label for="number" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Digite seu numero:</label>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+            *ngIf="addressGroup.get('number')?.hasError('required')
+                  && addressGroup.get('number')?.touched"
+            ><span class="font-medium">Oops!</span> Campo obrigátorio</p>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+          <input type="text" name="CEP" id="CEP" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="CEP" />
+          <label for="CEP" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Digite seu CEP:</label>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+            *ngIf="addressGroup.get('CEP')?.hasError('required')
+                  && addressGroup.get('CEP')?.touched"
+            ><span class="font-medium">Oops!</span> Campo obrigátorio</p>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-3 md:gap-6" [formGroup]="addressGroup">
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="complement" id="complement" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="complement" />
+            <label for="complement" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Digite seu complemento:</label>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+            *ngIf="addressGroup.get('complement')?.hasError('required')
+                  && addressGroup.get('complement')?.touched"
+            ><span class="font-medium">Oops!</span> Campo obrigátorio</p>
+          </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="city" id="city" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="city" />
+            <label for="city" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Digite sua cidade:</label>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+            *ngIf="addressGroup.get('city')?.hasError('required')
+                  && addressGroup.get('city')?.touched"
+            ><span class="font-medium">Oops!</span> Campo obrigátorio</p>
+          </div>
+        <div class="relative z-0 w-full mb-5 group">
+          <select name="state" id="state" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="state">
+            <option class="bg-slate-800" value="">Selecione</option>
+            <option class="bg-slate-800" value="{{uf}}" *ngFor="let uf of ufs; let i = index">{{uf}}</option>
+          </select>
+          <label for="state" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Escolha seu estado:</label>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+            *ngIf="addressGroup.get('state')?.hasError('required')
+                  && addressGroup.get('state')?.touched"
+            ><span class="font-medium">Oops!</span> Campo obrigátorio</p>
+        </div>
+
+      </div>
+
+      <div *ngIf="showLine" class="border-b mt-4 border-x-gray-800 text-slate-700 border-gray-500"></div>
+    </div>
+
+    <button type="button" class="text-white mt-5" (click)="addAddress()">Adicionar Endereço</button>
+  </div>
+
+  <h1 class="mb-5 mt-5 text-gray-200 text-4xl">Contatos</h1>
+
+  <div formArrayName="contacts">
+    <div *ngFor="let contactGroup of contacts.controls; let i = index">
+      <div class="grid md:grid-cols-3 md:gap-6">
+        <div class="relative z-0 w-full mb-5 group" [formGroup]="contactGroup">
+            <input type="text" name="nameContact" id="nameContact" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="nameContact" />
+            <label for="nameContact" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Digite o nome:</label>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+            *ngIf="contactGroup.get('nameContact')?.hasError('required')
+                  && contactGroup.get('nameContact')?.touched"
+            ><span class="font-medium">Oops!</span> Campo obrigátorio</p>
+        </div>
+        <div class="relative z-0 w-full mb-5 group" [formGroup]="contactGroup.get('typeContact')">
+            <input type="text" name="typeContactEnum" id="contact" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="typeContactEnum" />
+            <label for="typeContactEnum" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Digite o contato:</label>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+            *ngIf="contactGroup.get('typeContact').get('typeContactEnum')?.hasError('required')
+              && contactGroup.get('typeContact').get('typeContactEnum')?.touched"
+            ><span class="font-medium">Oops!</span> Campo obrigátorio</p>
+          </div>
+        <div class="relative z-0 w-full mb-5 group" [formGroup]="contactGroup.get('typeContact')">
+          <input type="text" name="contact" id="contact" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " formControlName="contact" />
+          <label for="typeContact" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Escolha o tipo:</label>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+            *ngIf="contactGroup.get('typeContact').get('contact')?.hasError('required')
+              && contactGroup.get('typeContact').get('contact')?.touched"
+            ><span class="font-medium">Oops!</span> Campo obrigátorio</p>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="text-white" (click)="addContact()">Adicionar Contato</button>
+  </div>
+
+  <button type="submit" class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Salvar</button>
+</form>
+
+

@@ -1,0 +1,88 @@
+
+
+<div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+  <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+  </svg>
+  <span class="sr-only">Danger</span>
+  <div>
+    <span class="font-medium">Ensure that these requirements are met:</span>
+      <ul class="mt-1.5 list-disc list-inside">
+        <li>At least 10 characters (and up to 100 characters)</li>
+        <li>At least one lowercase character</li>
+        <li>Inclusion of at least one special character, e.g., !  # ?</li>
+    </ul>
+  </div>
+</div>
+
+
+<form [formGroup]="registerForm" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="mb-5">
+    <label for="userName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">UserName</label>
+    <input type="text" id="userName" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="usuario123" formControlName="userName" >
+    <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+    *ngIf="registerForm.get('userName')?.hasError('required')
+          && registerForm.get('userName')?.touched"
+    ><span class="font-medium">Oops!</span> UserName é obrigatório!</p>
+  </div>
+  <div class="mb-5">
+    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seu e-mail</label>
+    <input type="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="name@flowbite.com" formControlName="email">
+    <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+    *ngIf="registerForm.get('email')?.hasError('email')
+          && registerForm.get('email')?.touched"
+    ><span class="font-medium">Oops!</span> E-mail inválido!</p>
+    <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+    *ngIf="registerForm.get('email')?.hasError('required')
+          && registerForm.get('email')?.touched"
+    ><span class="font-medium">Oops!</span> E-mail é obrigatório!</p>
+  </div>
+  <div class="mb-5">
+    <label for="phoneNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefone</label>
+    <input type="text" id="phoneNumber" maxlength="11" name="phoneNumber" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="(99) 9-9999-9999" formControlName="phoneNumber">
+    <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+    *ngIf="registerForm.get('phoneNumber')?.hasError('required')
+          && registerForm.get('phoneNumber')?.touched"
+    ><span class="font-medium">Oops!</span> Telefone é obrigatório!</p>
+    <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+    *ngIf="registerForm.get('phoneNumber')?.hasError('minlength')
+          && registerForm.get('phoneNumber')?.touched"
+    ><span class="font-medium">Oops!</span> Mínimo deve ser 10!</p>
+    <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+    *ngIf="registerForm.get('phoneNumber')?.hasError('maxlength')
+          && registerForm.get('phoneNumber')?.touched"
+    ><span class="font-medium">Oops!</span> Mínimo deve ser 11!</p>
+  </div>
+  <div class="mb-5">
+    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha</label>
+    <input type="password" id="password" name="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" formControlName="password">
+    <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+    *ngIf="registerForm.get('password')?.hasError('required')
+          && registerForm.get('password')?.touched"
+    ><span class="font-medium">Oops!</span> Senha é obrigatório!</p>
+  </div>
+  <div class="mb-5">
+    <label for="confirmPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmar Senha</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" formControlName="confirmPassword">
+    <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+    *ngIf="registerForm.get('confirmPassword')?.hasError('required')
+          && registerForm.get('confirmPassword')?.touched"
+    ><span class="font-medium">Oops!</span> Confirme sua senha!</p>
+  </div>
+  <div class="flex items-start mb-5">
+    <div class="flex items-center h-5">
+      <input id="termAgree" name="termAgree" type="checkbox" value="registerForm.termAgree" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" formControlName="termAgree">
+    </div>
+    <label for="termAgree" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Eu concordo com <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">termos e condições</a></label>
+    <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+    *ngIf="registerForm.get('termAgree')?.hasError('required')
+          && registerForm.get('termAgree')?.touched"
+    ><span class="font-medium">Oops!</span> Concorde com os termos para continuar.</p>
+  </div>
+  <div class="mb-5">
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Foto de perfil</label>
+    <input accept="image/*" (change)="onFileSelected($event)" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file">
+    <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">Escolha uma foto de perfil, ela aparecera quando estiver logado no sistema.</div>
+  </div>
+  <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" (click)="onSubmit()">Criar uma nova conta</button>
+</form>
