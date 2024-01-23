@@ -9,6 +9,6 @@ public static class DependecyInjectionConfig
     {
         services.AddScoped<IClientRepository, ClientRepository>();
         services.AddScoped<IClientService, ClientService>();
-    }
+	}
 }
 

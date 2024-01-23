@@ -15,14 +15,14 @@ var app = builder.Build();
 
 app.UseSwaggerConfig();
 
-if (builder.Environment.IsProduction())
-{
-    IdentityModelEventSource.ShowPII = true;
+//if (builder.Environment.IsProduction())
+//{
+//    IdentityModelEventSource.ShowPII = true;
 
-    using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
-    await db.Database.EnsureCreatedAsync();
-}
+//    using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+//    var db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+//    await db.Database.EnsureCreatedAsync();
+//}
 
 app.UseApiConfiguration(builder.Environment);
 

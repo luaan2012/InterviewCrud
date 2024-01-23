@@ -21,6 +21,7 @@ public static class ApiConfig
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(jwt =>
             {
+                
                 jwt.RequireHttpsMetadata = true;
                 jwt.SaveToken = true;
                 jwt.SetJwksOptions(new JwkOptions(appSettings.IdentityURL));

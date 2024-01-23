@@ -10,5 +10,6 @@ public static class DependecyInjectionConfig
     {
         services.AddTransient<IEmailSender, Emailsender>();
         services.AddScoped<IAuthServices, AuthServices>();
-    }
+		services.AddScoped<IAspNetUser, AspNetUser>();
+	}
 }

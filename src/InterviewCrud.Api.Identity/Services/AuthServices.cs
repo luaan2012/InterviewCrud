@@ -25,15 +25,16 @@ public class AuthServices(
     IJwtService jwtService,
     SignInManager<User> signInManager,
     UserManager<User> userManager,
-    IOptionsMonitor<AppSettings> appSettings
+    IOptionsMonitor<AppSettings> appSettings,
+    IAspNetUser aspNetUser
 ) : IAuthServices
 {
     private readonly IJwtService _jwtService = jwtService;
     private readonly SignInManager<User> _signInManager = signInManager;
     private readonly UserManager<User> _userManager = userManager;
     private readonly AppSettings _appSettings = appSettings.CurrentValue;
-
-    public async Task<Result<UserLoginResponse, string>> SignIn(RequestLogin request)
+	private readonly IAspNetUser _aspNetUser = aspNetUser;
+	public async Task<Result<UserLoginResponse, string>> SignIn(RequestLogin request)
     {
         var result = await _signInManager.PasswordSignInAsync(request.EmailOrUserName, request.Password, false, true);
 
@@ -108,9 +109,11 @@ public class AuthServices(
 
         var tokenHandler = new JwtSecurityTokenHandler();
 
-        var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
+		var currentIssuer = $"{_aspNetUser.ObterHttpContext().Request.Scheme}s://{_aspNetUser.ObterHttpContext().Request.Host}";
+
+		var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
         {
-            Issuer = _appSettings.ValidIssuer, 
+            Issuer = currentIssuer,
             Audience = _appSettings.ValidAudience,
             IssuedAt = DateTime.Now,
             NotBefore = DateTime.Now,
@@ -138,7 +141,7 @@ public class AuthServices(
 
         var securityToken = handler.CreateToken(new SecurityTokenDescriptor
         {
-            Issuer = _appSettings.ValidIssuer,              
+            //Issuer = _appSettings.ValidIssuer,              
             Audience = _appSettings.ValidAudience,
             SigningCredentials = await _jwtService.GetCurrentSigningCredentials(),
             Subject = identityClaims,

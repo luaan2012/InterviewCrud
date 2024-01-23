@@ -1,7 +1,7 @@
 export const environment = {
   application:
   {
-    urlIdentity: "https://localhost:7121/",
-    urlClient: "https://localhost:7024/",
+    urlIdentity: "https://api1.portfolioluan.shop/",
+    urlClient: "https://api2.portfolioluan.shop/",
   }
 };
