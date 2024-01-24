@@ -1,4 +1,4 @@
-﻿using InterviewCrud.Api.Client.Data;
+using InterviewCrud.Api.Client.Data;
 using InterviewCrud.Api.Client.InputModels;
 using InterviewCrud.Api.Client.Models;
 using Microsoft.EntityFrameworkCore;
@@ -169,7 +169,8 @@ namespace InterviewCrud.Api.Client.Repository
                 }
 
                 List<Contact> contactsToAdd = new List<Contact>(findClient.Contacts);
-                
+                List<TypeContact> typeContactsToAdd = new List<TypeContact>();
+
                 findClient.Addresses = addressesToAdd;
 
                 foreach (var contact in client.Contacts)
@@ -179,10 +180,22 @@ namespace InterviewCrud.Api.Client.Repository
                     if (existingContact != null)
                     {
                         _context.Entry(existingContact).CurrentValues.SetValues(contact);
+
+                        var existingTypeContact = _context.TypeContacts.FirstOrDefault(tc => tc.Id == contact.TypeContactId);
+
+                        if (existingTypeContact != null)
+                        {
+                            _context.Entry(existingTypeContact).CurrentValues.SetValues(contact.TypeContact);
+                        }
+                        else
+                        {
+                            typeContactsToAdd.Add(contact.TypeContact);
+                        }
                     }
                     else
                     {
                         contactsToAdd.Add(contact);
+                        typeContactsToAdd.Add(contact.TypeContact);
                     }
                 }
 
